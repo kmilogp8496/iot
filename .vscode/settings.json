@@ -98,5 +98,6 @@
         "**/.DS_Store": true,
         "**/Thumbs.db": true,
         "**/.nuxt": true
-    }
+    },
+    glow
 }

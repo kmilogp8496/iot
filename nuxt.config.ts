@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     '@nuxt/test-utils',
     '@nuxt/ui-pro',
     '@nuxt/content',
+    'nuxt-auth-utils',
   ],
 
   // https://devtools.nuxt.com

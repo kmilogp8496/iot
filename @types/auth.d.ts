@@ -4,6 +4,7 @@ declare module '#auth-utils' {
     // Add your own fields
     email: string
     name: string
+    avatar: string | null
   }
 
   interface UserSession {

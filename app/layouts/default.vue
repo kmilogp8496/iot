@@ -5,7 +5,14 @@ const items = ref([
     to: '/',
     icon: 'i-heroicons-home',
   },
+  {
+    label: 'Sensors',
+    to: '/sensors',
+    icon: 'i-cbi:outdoor-motion-sensor-temperature',
+  },
 ])
+
+const { user } = useUserSession()
 </script>
 
 <template>
@@ -14,7 +21,7 @@ const items = ref([
       <template #title>
         <div class="flex items-center gap-2">
           <UIcon name="eos-icons:iot" />
-          <span>
+          <span class="sm:block hidden">
             IoT Platform
           </span>
         </div>
@@ -39,7 +46,12 @@ const items = ref([
           />
         </UTooltip>
 
-        <UUser name="John Doe" :avatar="{ src: 'https://avatars.githubusercontent.com/u/52615668?v=4' }" description="Software Engineer" />
+        <UUser
+          v-if="user"
+          :name="user.name"
+          :avatar="{ src: user.avatar ?? undefined }"
+          :description="user.email"
+        />
       </template>
     </UHeader>
 

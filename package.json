@@ -10,7 +10,8 @@
     "preview": "npx nuxthub preview",
     "deploy": "npx nuxthub deploy",
     "postinstall": "nuxt prepare",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "typecheck": "vitest typecheck"
   },
   "dependencies": {
     "@nuxt/content": "3.3.0",
@@ -21,19 +22,22 @@
     "@nuxt/test-utils": "3.17.2",
     "@nuxt/ui-pro": "^3.0.0",
     "@nuxthub/core": "^0.8.18",
-    "drizzle-orm": "^0.40.0",
-    "nuxt": "^3.16.0",
+    "drizzle-orm": "^0.40.1",
+    "nuxt": "^3.16.1",
     "nuxt-auth-utils": "0.5.16",
     "vue": "^3.5.13",
-    "vue-router": "^4.5.0"
+    "vue-router": "^4.5.0",
+    "zod": "^3.24.2"
   },
   "devDependencies": {
     "@nuxt/eslint-config": "^1.2.0",
     "drizzle-kit": "^0.30.5",
     "eslint": "^9.22.0",
+    "happy-dom": "^17.4.4",
     "typescript": "^5.8.2",
+    "vitest": "^3.0.9",
     "vue-tsc": "^2.2.8",
-    "wrangler": "^4.0.0"
+    "wrangler": "^4.2.0"
   },
   "packageManager": "pnpm@10.6.3",
   "pnpm": {

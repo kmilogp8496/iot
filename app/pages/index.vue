@@ -5,9 +5,17 @@ const tasks = ref([
     completed: true,
   },
   {
+    title: 'Activar autenticación con github en prod',
+    completed: true,
+  },
+  {
     title: 'Página de sensores',
     completed: false,
     children: [
+      {
+        title: 'Tablas de base de datos',
+        completed: true,
+      },
       {
         title: 'API: Listar',
         completed: false,

@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-export default defineValidatedEventHandler(async (event, { query }) => {
+export default validatedEventHandler(async (event, { query }) => {
   const session = await requireUserSession(event)
 
   const db = useDrizzle()

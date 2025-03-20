@@ -17,7 +17,7 @@ interface EventBag<
   session: ValidateSession extends true ? UserSessionRequired : undefined
 }
 
-export const defineValidatedEventHandler = <
+export const validatedEventHandler = <
   ReturnType = unknown,
   Query extends ZodType = EmptyZodType,
   Body extends ZodType = EmptyZodType,

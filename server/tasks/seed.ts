@@ -8,19 +8,17 @@ export default defineTask({
   async run() {
     console.log('Running DB seed task...')
 
-    const entries = Object.entries(seeds)
-
-    entries.forEach(([key]) => {
-      if (!(key in tables)) {
-        console.error(`Table ${key} not found`)
+    for (const table of seeds.executionOrder) {
+      console.log('Trying to seed table: ', table)
+      if (!(table in seeds) || !(table in tables)) {
+        console.error(`Table ${table} not found in seeds or tables`)
         return { result: 'error' }
       }
-    })
-    console.log(await useDrizzle().select().from(tables.organizations))
 
-    for (const [key, value] of entries) {
-      console.log(`Seeding table ${key} with ${value.length} rows...`)
-      await useDrizzle().insert(tables[key as keyof typeof tables]).values(value)
+      const seed = seeds[table]
+
+      console.log(`Seeding table ${table} with ${seed.length} rows...`)
+      await useDrizzle().insert(tables[table]).values(seed)
     }
 
     return { result: 'success' }

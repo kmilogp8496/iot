@@ -9,6 +9,14 @@ const tasks = ref([
     completed: true,
   },
   {
+    title: 'Añadir seed de datos',
+    completed: true,
+  },
+  {
+    title: 'Añadir logger para peticiones y respuestas',
+    completed: false,
+  },
+  {
     title: 'Página de sensores',
     completed: false,
     children: [
@@ -18,7 +26,7 @@ const tasks = ref([
       },
       {
         title: 'API: Listar',
-        completed: false,
+        completed: true,
       },
       {
         title: 'API: Listar unidades de medición',

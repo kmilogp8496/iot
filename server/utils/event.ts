@@ -1,5 +1,4 @@
-import type { ZodType } from 'zod'
-import { z } from 'zod'
+import type { ZodType, z } from 'zod'
 import type { H3Event } from 'h3'
 import { eventHandler } from 'h3'
 import type { UserSessionRequired } from '#auth-utils'
@@ -51,25 +50,3 @@ export const defineValidatedEventHandler = <
     } as EventBag<Body, Query, Param, ValidateSession>)
   })
 }
-
-const response = defineValidatedEventHandler(async (event, requestBag) => {
-  // These are safe because we provided the schemas
-  console.log(requestBag.query.page)
-  console.log(requestBag.params.id)
-
-  // Session is required by default (validateSession = true)
-  console.log(requestBag.session.user)
-
-  return event.path
-}, {
-  querySchema: z.object({
-    page: z.number(),
-  }),
-  paramsSchema: z.object({
-    id: z.number(),
-  }),
-})
-
-response({} as H3Event).then((res) => {
-  console.log(res)
-})

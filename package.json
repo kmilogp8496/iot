@@ -30,6 +30,7 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
+    "@faker-js/faker": "^9.6.0",
     "@nuxt/eslint-config": "^1.2.0",
     "drizzle-kit": "^0.30.5",
     "eslint": "^9.22.0",
@@ -37,7 +38,7 @@
     "typescript": "^5.8.2",
     "vitest": "^3.0.9",
     "vue-tsc": "^2.2.8",
-    "wrangler": "^4.2.0"
+    "wrangler": "^4.0.0"
   },
   "packageManager": "pnpm@10.6.3",
   "pnpm": {

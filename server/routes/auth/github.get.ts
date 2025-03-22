@@ -22,6 +22,7 @@ export default defineOAuthGitHubEventHandler({
       organizationId: users.organizationId,
       organizationName: organizations.name,
       name: users.name,
+      avatar: users.avatar,
     })
       .from(users)
       .where(
@@ -47,6 +48,7 @@ export default defineOAuthGitHubEventHandler({
         id: createdUser.id,
         email: createdUser.email,
         name: createdUser.name,
+        avatar: createdUser.avatar,
         organizationId: createdUser.organizationId,
         organizationName: organization.at(0)!.name,
       }
@@ -54,13 +56,16 @@ export default defineOAuthGitHubEventHandler({
 
     await setUserSession(event, {
       user: {
+        id: dbUser.id,
         email: dbUser.email,
         name: dbUser.name,
+        avatar: dbUser.avatar,
         organization: {
           id: dbUser.organizationId,
           name: dbUser.organizationName,
         },
       },
+      loggedInAt: Date.now(),
     })
     return sendRedirect(event, '/')
   },

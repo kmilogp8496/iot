@@ -1,21 +1,23 @@
-import { z } from 'zod'
+import { count, desc } from 'drizzle-orm'
+import { createPaginatedResponse } from '~~/server/utils/response'
 
-export default validatedEventHandler(async (event, { query }) => {
-  const session = await requireUserSession(event)
-
+export default validatedEventHandler(async ({ query, session }) => {
   const db = useDrizzle()
 
-  const sensors = await db.query.sensors.findMany({
-    limit: query.limit ?? 10,
-    offset: query.offset ?? 0,
-    orderBy: (sensors, { desc }) => [desc(sensors.createdAt)],
-    where: (sensors, { eq }) => eq(sensors.organizationId, session.user.organization.id),
-  })
+  const sensorFilters = getDefaultSensorFilters(session.user.organization.id)
 
-  return sensors
+  const sensors = await db.select().from(tables.sensors).where(
+    ...sensorFilters,
+  )
+    .limit(query.limit)
+    .offset(query.offset)
+    .orderBy(desc(tables.sensors.createdAt))
+
+  const total = (await db.select({ count: count() }).from(tables.sensors).where(
+    ...sensorFilters,
+  )).at(0)!.count
+
+  return createPaginatedResponse(sensors, total)
 }, {
-  querySchema: z.object({
-    limit: z.number().optional(),
-    offset: z.number().optional(),
-  }),
+  querySchema: paginationQuerySchema,
 })

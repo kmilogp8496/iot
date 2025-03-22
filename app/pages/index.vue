@@ -14,10 +14,10 @@ const tasks = ref([
   },
   {
     title: 'Añadir logger para peticiones y respuestas',
-    completed: false,
+    completed: true,
   },
   {
-    title: 'Página de sensores',
+    title: 'APIs de sensores',
     completed: false,
     children: [
       {
@@ -30,19 +30,19 @@ const tasks = ref([
       },
       {
         title: 'API: Listar unidades de medición',
-        completed: false,
+        completed: true,
       },
       {
         title: 'API: Crear',
-        completed: false,
+        completed: true,
       },
       {
         title: 'API: Actualizar',
-        completed: false,
+        completed: true,
       },
       {
         title: 'API: Eliminar',
-        completed: false,
+        completed: true,
       },
     ],
   },

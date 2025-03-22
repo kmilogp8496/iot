@@ -1,6 +1,6 @@
 declare module '#auth-utils' {
   interface User {
-    // Add your own fields
+    id: number
     email: string
     name: string
     avatar: string | null
@@ -11,7 +11,6 @@ declare module '#auth-utils' {
   }
 
   interface UserSession {
-    // Add your own fields
     loggedInAt: number
     user: User
   }

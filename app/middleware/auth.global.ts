@@ -1,11 +1,12 @@
 export default defineNuxtRouteMiddleware((to) => {
-  if (to.meta.requiresAuth === false) {
-    return
-  }
+  // console.log('to', to)
+  // if (to.meta.requiresAuth === false) {
+  //   return
+  // }
 
-  const { loggedIn } = useUserSession()
+  // const { loggedIn } = useUserSession()
 
-  if (!loggedIn.value) {
-    return navigateTo('/login')
-  }
+  // if (!loggedIn.value) {
+  //   return navigateTo('/login')
+  // }
 })

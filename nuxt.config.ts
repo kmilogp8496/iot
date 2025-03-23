@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     '@nuxt/test-utils/module',
     '@nuxt/ui-pro',
     '@nuxt/content',
+    'nuxt-og-image',
     'nuxt-auth-utils',
   ],
 
@@ -18,9 +19,14 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
-  ui: {
-    fonts: true,
-    colorMode: true,
+  content: {
+    build: {
+      markdown: {
+        toc: {
+          searchDepth: 1,
+        },
+      },
+    },
   },
 
   // Env variables - https://nuxt.com/docs/getting-started/configuration#environment-variables-and-private-tokens
@@ -46,10 +52,5 @@ export default defineNuxtConfig({
     config: {
       stylistic: true,
     },
-  },
-
-  uiPro: {
-    content: true,
-    mdc: true,
   },
 })

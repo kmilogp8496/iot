@@ -28,7 +28,7 @@ pnpm dev
 
 ## Tasks resolution
 
-All the tasks are available in the [roadmap](./roadmap.md) page. Since there is no project management tool, you can **create a new issue** and assign it to yourself. Remember to tag the issue with `wip` and `feature` so it can be found by others.
+All the tasks are available in the roadmap page. Since there is no project management tool, you can **create a new issue** and assign it to yourself. Remember to tag the issue with `wip` and `feature` so it can be found by others.
 
 Better ways will arrive soon for managing the tasks. Stay tuned!
 

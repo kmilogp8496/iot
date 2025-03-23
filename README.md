@@ -36,6 +36,9 @@ Better ways will arrive soon for managing the tasks. Stay tuned!
 
 The application uses [Nuxt UI Pro](https://ui.nuxt.com/pro) for the UI. You can use the project in your development environment without the need of a license. In case you want to use it in production, you can buy a license [here](https://ui.nuxt.com/pro/pricing) and use it in your project. Give it a try and if you like it, please support the Nuxt OSS development by buying a license.
 
-## Contributing
+## Contributing 🙏
 
 If you want to contribute to the project, you can create a new issue or a Pull Request.
+
+## License
+[MIT License](./LICENSE.md)

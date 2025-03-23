@@ -19,6 +19,11 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
+  site: {
+    url: 'https://iot.kmilo.dev',
+    name: 'IoT Platform',
+  },
+
   content: {
     build: {
       markdown: {

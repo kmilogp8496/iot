@@ -8,25 +8,11 @@ const { header } = useAppConfig()
 
 <template>
   <UHeader
-    :ui="{ center: 'flex-1' }"
     :to="header?.to || '/'"
   >
-    <UContentSearchButton
-      v-if="header?.search"
-      label="Search..."
-      variant="outline"
-      class="w-full"
-    >
-      <template #trailing>
-        <div class="flex items-center gap-0.5 ms-auto">
-          <UKbd value="meta" />
-          <UKbd value="k" />
-        </div>
-      </template>
-    </UContentSearchButton>
+    <LayoutSectionMenu v-if="$route.path !== '/'" />
 
     <template
-      v-if="header?.logo?.dark || header?.logo?.light || header?.title"
       #title
     >
       <UColorModeImage
@@ -42,21 +28,9 @@ const { header } = useAppConfig()
       </span>
     </template>
 
-    <template
-      v-else
-      #left
-    >
-      <NuxtLink :to="header?.to || '/'">
-        <LogoPro class="w-auto h-6 shrink-0" />
-      </NuxtLink>
-
-      <TemplateMenu />
-    </template>
-
     <template #right>
       <UContentSearchButton
         v-if="header?.search"
-        class="lg:hidden"
       />
 
       <UColorModeButton v-if="header?.colorMode" />

@@ -1,7 +1,14 @@
 <script setup lang="ts">
 const { seo } = useAppConfig()
 
+defineOgImageComponent('Nuxt', {
+  title: 'IoT Platform',
+  description: 'IoT Platform for managing your IoT devices',
+  headline: 'IoT Platform',
+})
+
 const { data: navigation } = await useAsyncData('navigation', () => queryCollectionNavigation('docs'))
+
 const { data: files } = useLazyAsyncData('search', () => queryCollectionSearchSections('docs'), {
   server: false,
 })
@@ -31,15 +38,11 @@ provide('navigation', navigation)
   <UApp>
     <NuxtLoadingIndicator />
 
-    <AppHeader />
-
     <UMain>
       <NuxtLayout>
         <NuxtPage />
       </NuxtLayout>
     </UMain>
-
-    <AppFooter />
 
     <ClientOnly>
       <LazyUContentSearch

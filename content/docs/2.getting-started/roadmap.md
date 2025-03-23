@@ -22,18 +22,20 @@ The objective of this milestone is to be ready for having a continuos delivery o
 - [X] Add nuxt content with a mix of "natural" vue components
 - [X] Add a logger for seeing logs on deployments
 - [X] Prepare event handlers for application
-- [ ] Prepare nuxt modules for making development easier
+- [X] Prepare nuxt modules for making development easier
+- [X] Add onboarding documentation for contributors
+- [X] Create navigation layout compatible with content and natural pages
 - [ ] Automate deployments via Github workflows
-- [ ] Add onboarding documentation for contributors
 - [ ] Sentry integration for error monitoring
 - [ ] Investigate the possibility for adding analytics for the site
-- [ ] Create navigation layout compatible with content and natural pages
 
 ## Sensors integration
 This phase will be in charge of preparing the sensors integration in the platform for their future use with tools such as prometheus and grafana.
 
 - [X] Data structure for sensors
     - [X] Add sensors table
+    - [ ] Add measurements tables
+    - [ ] Add units tables
 - [X] APIs
     - [X] List
     - [X] Add pagination to list

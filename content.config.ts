@@ -9,8 +9,8 @@ export default defineContentConfig({
     docs: defineCollection({
       type: 'page',
       source: {
-        include: '**',
-        exclude: ['index.md'],
+        include: 'docs/**',
+        prefix: 'docs',
       },
       schema: z.object({
         links: z.array(z.object({

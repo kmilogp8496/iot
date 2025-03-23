@@ -1,5 +1,4 @@
 export default defineNuxtRouteMiddleware((to) => {
-  console.log('to', to)
   if (to.meta.requiresAuth === false) {
     return
   }

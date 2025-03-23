@@ -36,15 +36,15 @@ const errorLogger = createConsola({
 
 export default defineNitroPlugin((nitroApp) => {
   nitroApp.hooks.hook('request', (event) => {
-    // event.context.timestamp = Date.now()
-    // logger.withTag('request').info({ method: event.method, path: event.path, timestamp: event.context.timestamp })
+    event.context.timestamp = Date.now()
+    logger.withTag('request').info({ method: event.method, path: event.path, timestamp: event.context.timestamp })
   })
 
   nitroApp.hooks.hook('afterResponse', (event) => {
-    // logger.withTag('response').info({ method: event.method, path: event.path, duration: `${Date.now() - event.context.timestamp} ms` })
+    logger.withTag('response').info({ method: event.method, path: event.path, duration: `${Date.now() - event.context.timestamp} ms` })
   })
 
   nitroApp.hooks.hook('error', (event) => {
-    // errorLogger.withTag('error').error(event)
+    errorLogger.withTag('error').error(event)
   })
 })

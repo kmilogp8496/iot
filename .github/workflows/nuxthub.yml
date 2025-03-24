@@ -31,7 +31,7 @@ jobs:
         run: pnpx nuxthub@latest ensure
 
       - name: Build application
-        run: pnpm build
+        run: NUXT_UI_PRO_LICENSE=${{ secrets.NUXT_UI_PRO_LICENSE }} pnpm build
 
       - name: Deploy to NuxtHub
         uses: nuxt-hub/action@v1

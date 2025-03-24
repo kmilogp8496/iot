@@ -3,7 +3,7 @@ const route = useRoute()
 const items = ref([
   {
     label: 'Docs',
-    value: '/docs/getting-started',
+    value: '/docs/getting-started/setup',
     icon: 'i-heroicons-book-open',
   },
   {

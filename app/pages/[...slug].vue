@@ -40,7 +40,7 @@ const links = computed(() => {
   const links = []
   if (toc?.bottom?.edit) {
     links.push({
-      icon: 'i-lucide-external-link',
+      icon: externalLinkIcon,
       label: 'Edit this page',
       to: `${toc.bottom.edit}/${page?.value?.stem}.${page?.value?.extension}`,
       target: '_blank',

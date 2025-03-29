@@ -1,4 +1,9 @@
-export const createPaginatedResponse = <T>(results: T, total: number) => ({
+export interface PaginatedResponse<T> {
+  results: T[]
+  total: number
+}
+
+export const createPaginatedResponse = <T>(results: T[], total: number): PaginatedResponse<T> => ({
   results,
   total,
 })

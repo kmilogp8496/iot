@@ -8,7 +8,7 @@ definePageMeta({
 <template>
   <div class="flex flex-col items-center justify-center h-screen cursor-pointer">
     <a href="/auth/github">
-      <UButton icon="i-logos-github-icon">
+      <UButton :icon="githubIcon">
         Login with Github
       </UButton>
     </a>

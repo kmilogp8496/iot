@@ -22,6 +22,8 @@ export default defineNuxtConfig({
   site: {
     url: 'https://iot.kmilo.dev',
     name: 'IoT Platform',
+    description: 'IoT Platform is an online tool for managing IoT devices on the internet using secure protocols for communication. Fully open source.',
+    headline: 'IoT Platform',
   },
 
   content: {

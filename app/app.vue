@@ -2,9 +2,9 @@
 const { seo } = useAppConfig()
 
 defineOgImageComponent('Nuxt', {
-  title: 'IoT Platform',
-  description: 'IoT Platform for managing your IoT devices',
-  headline: 'IoT Platform',
+  title: seo?.siteName,
+  description: seo?.description,
+  headline: seo?.headline,
 })
 
 const { data: navigation } = await useAsyncData('navigation', () => queryCollectionNavigation('docs'))

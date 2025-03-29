@@ -11,13 +11,11 @@ export const sensors = sqliteTable('sensors', {
   name: text('name').notNull(),
   description: text('description'),
   location: text('location').notNull(),
-  measurementUnit: text('measurement_unit').notNull(),
   createdAt: integer('created_at', { mode: 'timestamp' }).notNull().$default(() => new Date()),
   updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull().$default(() => new Date()).$onUpdate(() => new Date()),
 }, t => ([
   index('sensors_organization_id_idx').on(t.organizationId),
   index('sensors_created_by_idx').on(t.createdBy),
-  index('sensors_measurement_unit_idx').on(t.measurementUnit),
 ]))
 
 export type InsertSensor = typeof sensors.$inferInsert

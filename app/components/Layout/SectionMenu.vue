@@ -4,12 +4,12 @@ const items = ref([
   {
     label: 'Docs',
     value: '/docs/getting-started/setup',
-    icon: 'i-heroicons-book-open',
+    icon: docsIcon,
   },
   {
-    label: 'Platform',
-    value: '/',
-    icon: 'i-heroicons-server-stack',
+    label: 'Sensors',
+    value: '/sensors',
+    icon: sensorIcon,
   },
 ])
 const modelValue = computed(() => route.path.startsWith('/docs') ? items.value[0]! : items.value[1]!)

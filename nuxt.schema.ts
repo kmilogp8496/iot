@@ -93,6 +93,20 @@ export default defineNuxtSchema({
           icon: 'i-mdi-web',
           default: [],
         }),
+        description: field({
+          type: 'string',
+          title: 'Description',
+          description: 'Description used in ogDescription.',
+          icon: 'i-mdi-web',
+          default: [],
+        }),
+        headline: field({
+          type: 'string',
+          title: 'Headline',
+          description: 'Headline used in ogHeadline.',
+          icon: 'i-mdi-web',
+          default: [],
+        }),
       },
     }),
     header: group({

@@ -4,6 +4,13 @@ import type { ContentNavigationItem } from '@nuxt/content'
 const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
 
 const { header } = useAppConfig()
+
+const { loggedIn, clear } = useUserSession()
+
+const onLogout = () => {
+  clear()
+  navigateTo('/')
+}
 </script>
 
 <template>
@@ -42,6 +49,14 @@ const { header } = useAppConfig()
           v-bind="{ color: 'neutral', variant: 'ghost', ...link }"
         />
       </template>
+
+      <UButton
+        v-if="loggedIn"
+        :icon="logoutIcon"
+        variant="ghost"
+        color="neutral"
+        @click="onLogout"
+      />
     </template>
 
     <template #body>

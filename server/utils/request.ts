@@ -1,8 +1,9 @@
 import { z } from 'zod'
 
 export const paginationQuerySchema = z.object({
-  limit: z.number().optional().default(10),
-  offset: z.number().optional().default(0),
+  limit: z.coerce.number().optional().default(10),
+  offset: z.coerce.number().optional().default(0),
+  search: z.string().optional(),
 })
 
 export const idParamSchema = z.object({

@@ -12,6 +12,7 @@ export default defineNuxtConfig({
     '@nuxt/content',
     'nuxt-og-image',
     'nuxt-auth-utils',
+    '@vueuse/nuxt',
   ],
 
   // https://devtools.nuxt.com
@@ -59,5 +60,9 @@ export default defineNuxtConfig({
     config: {
       stylistic: true,
     },
+  },
+
+  icon: {
+    size: '20px',
   },
 })

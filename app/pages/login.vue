@@ -6,9 +6,9 @@ definePageMeta({
 </script>
 
 <template>
-  <div class="flex flex-col items-center justify-center h-screen cursor-pointer">
-    <a href="/auth/github">
-      <UButton :icon="githubIcon">
+  <div class="flex flex-col items-center justify-center h-screen">
+    <a href="/auth/github" class="cursor-pointer">
+      <UButton :icon="githubIcon" class="cursor-pointer">
         Login with Github
       </UButton>
     </a>

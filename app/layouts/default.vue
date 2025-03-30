@@ -2,7 +2,7 @@
   <UApp>
     <AppHeader />
 
-    <UContainer>
+    <UContainer class="min-h-[calc(100vh-123px)]">
       <slot />
     </UContainer>
     <AppFooter />

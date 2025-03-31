@@ -1,5 +1,5 @@
-<script setup lang="ts" generic="T">
-import type { DropdownMenuItem, TableColumn } from '@nuxt/ui'
+<script setup lang="ts" generic="T extends Record<string, unknown>">
+import type { DropdownMenuItem } from '@nuxt/ui'
 import type { AsyncData } from '#app'
 
 const {
@@ -7,7 +7,7 @@ const {
   data,
   pageSizes = [5, 10, 20, 50],
 } = defineProps<{
-  columns: TableColumn<T>[]
+  columns: DataTableColumn<T>[]
   data: AsyncData<PaginatedResponse<T> | undefined, unknown>
   pageSizes?: number[]
 }>()
@@ -16,10 +16,7 @@ const search = defineModel<string>('search', {
   default: '',
 })
 
-const orderBy = defineModel<{
-  column: string
-  direction: SortDirection
-} | undefined>('orderBy', {
+const orderBy = defineModel<OrderBy | undefined>('orderBy', {
   default: () => ({
     column: 'createdAt',
     direction: SortDirectionDefinition.desc.value,
@@ -59,6 +56,18 @@ watch(() => pagination.value.page, (value) => {
 }, {
   deep: true,
 })
+
+const onSort = (column: string, direction?: SortDirection) => {
+  if (direction) {
+    orderBy.value = {
+      column,
+      direction,
+    }
+  }
+  else {
+    orderBy.value = undefined
+  }
+}
 </script>
 
 <template>
@@ -75,17 +84,26 @@ watch(() => pagination.value.page, (value) => {
       :data="data.data.value?.results ?? []"
       :columns
     >
-      <!-- <template #description-header="{ column }">
+      <template v-for="col in columns" :key="col.accessorKey" #[`${col.accessorKey}-header`]="{ column }">
         <div class="flex items-center">
-          Description
+          {{ col.header }}
           <TableHeaderSorting
+            v-if="col.sortable"
             :column="column"
-            :sort="column.getIsSorted()"
+            :sort="orderBy?.column === col.accessorKey ? orderBy.direction : false"
+            @sort="onSort(col.accessorKey, $event)"
           />
-          <TableHeaderFilterable @search="columnFilters.description = $event" />
-          <TableHeaderFilter :filter-function="optionsFinder" placeholder="Description..." @search="columnFilters.description = $event" />
+          <template v-if="col.filter">
+            <TableHeaderFilterable v-if="col.filter === true" @search="columnFilters[col.accessorKey] = $event" />
+            <TableHeaderFilter
+              v-else
+              :filter-function="col.filter"
+              placeholder="Description..."
+              @search="columnFilters[col.accessorKey] = $event"
+            />
+          </template>
         </div>
-      </template> -->
+      </template>
       <template #actions-cell="">
         <UDropdownMenu :items="dropdownActions">
           <UButton

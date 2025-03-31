@@ -1,10 +1,11 @@
-import type { Pagination } from '~~/shared/utils/types'
+import type { OrderBy, Pagination } from '~~/shared/utils/types'
 
 export const useDataView = (defaultValues: {
   search?: string
   pagination?: Pagination
   columnFilters?: Record<string, string | number | boolean | undefined>
   pageSizes?: number[]
+  orderBy?: OrderBy
 } = {}) => {
   const search = ref(defaultValues.search ?? '')
   const debouncedSearch = debouncedRef(search, 300)
@@ -25,12 +26,18 @@ export const useDataView = (defaultValues: {
     'onUpdate:columnFilters': (value: Record<string, string | number | boolean | undefined>) => {
       columnFilters.value = value
     },
+    'onUpdate:orderBy': (value?: OrderBy) => {
+      orderBy.value = value
+    },
   }
+
+  const orderBy = ref<OrderBy | undefined>(defaultValues.orderBy)
 
   const viewBinds = computed(() => ({
     search: search.value,
     pagination: pagination.value,
     columnFilters: columnFilters.value,
+    orderBy: orderBy.value,
     pageSizes,
     ...listeners,
   }))
@@ -41,7 +48,8 @@ export const useDataView = (defaultValues: {
       offset: (pagination.value.page - 1) * pagination.value.pageSize,
       limit: pagination.value.pageSize,
       search: debouncedSearch.value,
-      columnFilters: columnFilters.value,
+      orderBy: orderBy.value ? `${orderBy.value.column} ${orderBy.value.direction}` : undefined,
+      ...columnFilters.value,
     })),
   }
 }

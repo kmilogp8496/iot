@@ -8,9 +8,12 @@ export type SortDirection = typeof SortDirectionDefinition[keyof typeof SortDire
 
 export type DataTableColumn<T> = TableColumn<T> & {
   filter?: true | FilterFunction
+  sortable?: true
+  accessorKey: (keyof T & string) | (string & {})
+  header: string
 }
 
-export type FilterFunction = (search: string) => Promise<FilterItem[]>
+export type FilterFunction = (search: string) => Promise<FilterItem[]> | FilterItem[]
 
 export interface FilterItem {
   value: string | number
@@ -20,4 +23,9 @@ export interface FilterItem {
 export interface Pagination {
   page: number
   pageSize: number
+}
+
+export interface OrderBy {
+  column: string
+  direction: SortDirection
 }

@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import type { TableColumn } from '@nuxt/ui'
-import type { InferPaginationType } from '~~/shared/utils/types'
+import type { DataTableColumn, InferPaginationType } from '~~/shared/utils/types'
 
 const { viewBinds, params } = useDataView()
 
@@ -10,14 +9,16 @@ const sensors = useFetch('/api/v1/sensors', {
 
 type Sensor = InferPaginationType<typeof sensors>
 
-const columns: TableColumn<Sensor>[] = [
+const columns: DataTableColumn<Sensor>[] = [
   {
     accessorKey: 'id',
     header: '#',
+    sortable: true,
   },
   {
     accessorKey: 'name',
     header: 'Name',
+    filter: true,
   },
   {
     accessorKey: 'description',
@@ -30,6 +31,7 @@ const columns: TableColumn<Sensor>[] = [
   {
     accessorKey: 'createdAt',
     header: 'Created At',
+    sortable: true,
     cell: ({ row }) => {
       return new Date(row.getValue('createdAt')).toLocaleString()
     },

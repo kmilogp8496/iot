@@ -1,11 +1,15 @@
 import { count, desc, like } from 'drizzle-orm'
+import { createSelectSchema } from 'drizzle-zod'
+import { objectOmit } from '@vueuse/core'
 import { createPaginatedResponse } from '~~/server/utils/response'
+import { buildFilters, buildOrderBy, buildOrderBySchema } from '~~/server/utils/request'
 
 export default validatedEventHandler(async ({ query, session }) => {
   const db = useDrizzle()
 
   const filters = and(
     ...getDefaultSensorFilters(session.user.organization.id),
+    ...buildFilters(tables.sensors, objectOmit(query, ['limit', 'offset', 'search', 'id', 'orderBy'])),
     query.search
       ? or(
           like(tables.sensors.name, `%${query.search}%`),
@@ -19,7 +23,7 @@ export default validatedEventHandler(async ({ query, session }) => {
   )
     .limit(query.limit)
     .offset(query.offset)
-    .orderBy(desc(tables.sensors.createdAt))
+    .orderBy(buildOrderBy(tables.sensors, query.orderBy) ?? desc(tables.sensors.createdAt))
 
   const total = (await db.select({ count: count() }).from(tables.sensors).where(
     filters,
@@ -27,5 +31,7 @@ export default validatedEventHandler(async ({ query, session }) => {
 
   return createPaginatedResponse(sensors, total)
 }, {
-  querySchema: paginationQuerySchema,
+  querySchema: paginationQuerySchema.merge(
+    createSelectSchema(tables.sensors).partial(),
+  ).merge(buildOrderBySchema(tables.sensors)),
 })

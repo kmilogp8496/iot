@@ -17,11 +17,9 @@ const emit = defineEmits<{
 const onSelect = (direction: SortDirection) => {
   if (props.sort === direction) {
     emit('sort')
-    props.column.clearSorting()
   }
   else {
     emit('sort', direction)
-    props.column.toggleSorting(direction === SortDirectionDefinition.desc.value)
   }
 }
 

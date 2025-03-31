@@ -1,6 +1,4 @@
 import type { H3Event } from 'h3'
-import { organizations } from '~~/server/database/schemas/organizations'
-import { users } from '~~/server/database/schemas/users'
 
 interface GitHubUser {
   email: string
@@ -17,27 +15,27 @@ export default defineOAuthGitHubEventHandler({
     const db = useDrizzle()
 
     let dbUser = (await db.select({
-      id: users.id,
-      email: users.email,
-      organizationId: users.organizationId,
-      organizationName: organizations.name,
-      name: users.name,
-      avatar: users.avatar,
+      id: tables.users.id,
+      email: tables.users.email,
+      organizationId: tables.users.organizationId,
+      organizationName: tables.organizations.name,
+      name: tables.users.name,
+      avatar: tables.users.avatar,
     })
-      .from(users)
+      .from(tables.users)
       .where(
-        eq(users.email, user.email),
+        eq(tables.users.email, user.email),
       ).innerJoin(
-        organizations, eq(users.organizationId, organizations.id),
+        tables.organizations, eq(tables.users.organizationId, tables.organizations.id),
       )
     ).at(0)
 
     if (!dbUser) {
-      const organization = await (db.insert(organizations).values({
+      const organization = await (db.insert(tables.organizations).values({
         name: user.email,
       }).returning())
 
-      const createdUser = (await db.insert(users).values({
+      const createdUser = (await db.insert(tables.users).values({
         email: user.email,
         name: user.name,
         avatar: user.avatar_url,

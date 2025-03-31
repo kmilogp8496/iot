@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import type { DataTableColumn, InferPaginationType } from '~~/shared/utils/types'
-
 const { viewBinds, params } = useDataView()
 
 const sensors = useFetch('/api/v1/sensors', {

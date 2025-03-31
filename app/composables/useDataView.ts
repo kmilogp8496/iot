@@ -1,5 +1,3 @@
-import type { OrderBy, Pagination } from '~~/shared/utils/types'
-
 export const useDataView = (defaultValues: {
   search?: string
   pagination?: Pagination

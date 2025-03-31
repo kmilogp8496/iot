@@ -1,8 +1,6 @@
 import { count, desc, like } from 'drizzle-orm'
 import { createSelectSchema } from 'drizzle-zod'
 import { objectOmit } from '@vueuse/core'
-import { createPaginatedResponse } from '~~/server/utils/response'
-import { buildFilters, buildOrderBy, buildOrderBySchema } from '~~/server/utils/request'
 
 export default validatedEventHandler(async ({ query, session }) => {
   const db = useDrizzle()

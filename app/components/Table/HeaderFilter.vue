@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import type { FilterFunction } from '~~/shared/utils/types'
-
 const emit = defineEmits<{
   search: [string | number | undefined]
 }>()

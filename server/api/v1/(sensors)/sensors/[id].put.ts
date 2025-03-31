@@ -1,5 +1,3 @@
-import { createNotFoundResponse } from '~~/server/utils/response'
-
 export default validatedEventHandler(async ({ body, params, session }) => {
   const db = useDrizzle()
 

@@ -1,7 +1,6 @@
 import type { Table, Column } from 'drizzle-orm'
 import { asc, desc, getTableColumns, like } from 'drizzle-orm'
 import { z } from 'zod'
-import type { OrderBy } from '~~/shared/utils/types'
 
 export const paginationQuerySchema = z.object({
   limit: z.coerce.number().optional().default(10),

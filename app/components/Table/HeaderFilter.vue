@@ -37,7 +37,7 @@ watch(selectedOption, () => {
       color="neutral"
       variant="ghost"
       :trailing-icon="filterIcon"
-      class="data-[state=open]:bg-(--ui-bg-elevated)"
+      class="p-0.5 ml-1"
     />
     <template #content>
       <UCard :ui="{ body: 'p-2 sm:p-2' }">

@@ -21,24 +21,27 @@ const columns: DataTableColumn<Sensor>[] = [
   {
     accessorKey: 'description',
     header: 'Description',
+    filter: true,
   },
   {
     accessorKey: 'location',
     header: 'Location',
+    filter: true,
   },
   {
     accessorKey: 'createdAt',
     header: 'Created At',
     sortable: true,
     cell: ({ row }) => {
-      return new Date(row.getValue('createdAt')).toLocaleString()
+      return formatToDateString(row.getValue('createdAt'))
     },
   },
   {
     accessorKey: 'updatedAt',
     header: 'Updated At',
+    sortable: true,
     cell: ({ row }) => {
-      return new Date(row.getValue('updatedAt')).toLocaleString()
+      return formatToDateString(row.getValue('updatedAt'))
     },
   },
   {

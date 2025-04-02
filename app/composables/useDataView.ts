@@ -24,12 +24,12 @@ export const useDataView = (defaultValues: {
     'onUpdate:columnFilters': (value: Record<string, string | number | boolean | undefined>) => {
       columnFilters.value = value
     },
-    'onUpdate:orderBy': (value?: OrderBy) => {
+    'onUpdate:orderBy': (value: OrderBy | null) => {
       orderBy.value = value
     },
   }
 
-  const orderBy = ref<OrderBy | undefined>(defaultValues.orderBy)
+  const orderBy = ref<OrderBy | null>(defaultValues.orderBy ?? null)
 
   const viewBinds = computed(() => ({
     search: search.value,

@@ -1,13 +1,13 @@
 import { count, desc, like } from 'drizzle-orm'
 import { createSelectSchema } from 'drizzle-zod'
-import { objectOmit } from '@vueuse/core'
+import { objectPick } from '@vueuse/core'
 
 export default validatedEventHandler(async ({ query, session }) => {
   const db = useDrizzle()
 
   const filters = and(
     ...getDefaultSensorFilters(session.user.organization.id),
-    ...buildFilters(tables.sensors, objectOmit(query, ['limit', 'offset', 'search', 'id', 'orderBy'])),
+    ...buildFilters(tables.sensors, objectPick(query, ['name', 'description', 'location'])),
     query.search
       ? or(
           like(tables.sensors.name, `%${query.search}%`),

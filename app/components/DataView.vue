@@ -16,11 +16,8 @@ const search = defineModel<string>('search', {
   default: '',
 })
 
-const orderBy = defineModel<OrderBy | undefined>('orderBy', {
-  default: () => ({
-    column: 'createdAt',
-    direction: SortDirectionDefinition.desc.value,
-  }),
+const orderBy = defineModel<OrderBy | null>('orderBy', {
+  default: null,
 })
 
 const pagination = defineModel<{
@@ -59,7 +56,7 @@ const onSort = (column: string, direction?: SortDirection) => {
     }
   }
   else {
-    orderBy.value = undefined
+    orderBy.value = null
   }
 }
 </script>
@@ -73,27 +70,28 @@ const onSort = (column: string, direction?: SortDirection) => {
             <ButtonClear @clear="search = ''" />
           </template>
         </UInput>
-        <UButton>
+        <UButton @click="data.refresh()">
           <Icon name="i-lucide-refresh-cw" />
         </UButton>
       </div>
     </template>
     <UTable
+      :loading="data.status.value === 'pending'"
       sticky
       :data="data.data.value?.results ?? []"
       :columns
     >
-      <template v-for="col in columns" :key="col.accessorKey" #[`${col.accessorKey}-header`]="{ column }">
+      <template v-for="col in columns" :key="col.accessorKey" #[`${col.accessorKey}-header`]>
         <div class="flex items-center">
           {{ col.header }}
           <TableHeaderSorting
             v-if="col.sortable"
-            :column="column"
-            :sort="orderBy?.column === col.accessorKey ? orderBy.direction : false"
+            :column-key="col.accessorKey"
+            :sort="orderBy"
             @sort="onSort(col.accessorKey, $event)"
           />
           <template v-if="col.filter">
-            <TableHeaderFilterable v-if="col.filter === true" @search="columnFilters[col.accessorKey] = $event" />
+            <TableHeaderFilterable v-if="col.filter === true" :is-active="!!columnFilters[col.accessorKey]" @search="columnFilters[col.accessorKey] = $event" />
             <TableHeaderFilter
               v-else
               :filter-function="col.filter"

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const { viewBinds, params } = useDataView()
 
-const sensors = useFetch('/api/v1/sensors', {
+const sensors = useApiFetch('/api/v1/sensors', {
   params,
 })
 

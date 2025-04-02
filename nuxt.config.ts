@@ -1,7 +1,3 @@
-if (!process.env.NUXT_SESSION_PASSWORD) {
-  throw new Error('NUXT_SESSION_PASSWORD is not set')
-}
-
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   // https://nuxt.com/modules
@@ -43,7 +39,7 @@ export default defineNuxtConfig({
   // Env variables - https://nuxt.com/docs/getting-started/configuration#environment-variables-and-private-tokens
   runtimeConfig: {
     session: {
-      password: process.env.NUXT_SESSION_PASSWORD,
+      password: process.env.NUXT_SESSION_PASSWORD as string,
     },
     oauth: {
       github: {

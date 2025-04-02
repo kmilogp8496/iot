@@ -51,12 +51,6 @@ const dropdownActions = ref<DropdownMenuItem[][]>([
   ],
 ])
 
-watch(() => pagination.value.page, (value) => {
-  console.log('pagination', value)
-}, {
-  deep: true,
-})
-
 const onSort = (column: string, direction?: SortDirection) => {
   if (direction) {
     orderBy.value = {
@@ -73,11 +67,16 @@ const onSort = (column: string, direction?: SortDirection) => {
 <template>
   <UCard :ui="{ body: 'p-0 sm:p-0' }">
     <template #header>
-      <UInput v-model="search" placeholder="Search..." :trailing-icon="searchIcon">
-        <template v-if="search.length" #trailing>
-          <ButtonClear @clear="search = ''" />
-        </template>
-      </UInput>
+      <div class="flex items-center justify-between">
+        <UInput v-model="search" placeholder="Search..." :trailing-icon="searchIcon">
+          <template v-if="search.length" #trailing>
+            <ButtonClear @clear="search = ''" />
+          </template>
+        </UInput>
+        <UButton>
+          <Icon name="i-lucide-refresh-cw" />
+        </UButton>
+      </div>
     </template>
     <UTable
       sticky

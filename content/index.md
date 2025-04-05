@@ -10,11 +10,14 @@ orientation: horizontal
 ---
   :::prose-pre
   ---
-  code: git clone https://github.com/kmilogp8496/iot.git
+  code: git clone https://github.com/kmilogp8496/iot.git && cd iot && pnpm install && pnpm dev
   filename: Terminal
   ---
   ```bash
-  git clone https://github.com/kmilogp8496/iot.git
+  git clone https://github.com/kmilogp8496/iot.git 
+  cd iot 
+  pnpm install 
+  pnpm dev
   ```
   :::
 

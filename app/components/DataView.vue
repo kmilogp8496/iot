@@ -10,6 +10,7 @@ const {
   columns: DataTableColumn<T>[]
   data: AsyncData<PaginatedResponse<T> | undefined, unknown>
   pageSizes?: number[]
+  rowActions?: (row: T) => DropdownMenuItem[][]
 }>()
 
 const search = defineModel<string>('search', {
@@ -33,20 +34,6 @@ const pagination = defineModel<{
 const columnFilters = defineModel<Record<string, string | number | boolean | undefined>>('columnFilters', {
   default: () => ({}),
 })
-
-const dropdownActions = ref<DropdownMenuItem[][]>([
-  [
-    {
-      label: 'Edit',
-      icon: 'i-lucide-edit',
-    },
-    {
-      label: 'Delete',
-      icon: 'i-lucide-trash',
-      color: 'error',
-    },
-  ],
-])
 
 const onSort = (column: string, direction?: SortDirection) => {
   if (direction) {
@@ -91,7 +78,11 @@ const onSort = (column: string, direction?: SortDirection) => {
             @sort="onSort(col.accessorKey, $event)"
           />
           <template v-if="col.filter">
-            <TableHeaderFilterable v-if="col.filter === true" :is-active="!!columnFilters[col.accessorKey]" @search="columnFilters[col.accessorKey] = $event" />
+            <TableHeaderFilterable
+              v-if="col.filter === true"
+              :is-active="!!columnFilters[col.accessorKey]"
+              @search="columnFilters[col.accessorKey] = $event"
+            />
             <TableHeaderFilter
               v-else
               :filter-function="col.filter"
@@ -101,10 +92,10 @@ const onSort = (column: string, direction?: SortDirection) => {
           </template>
         </div>
       </template>
-      <template #actions-cell="">
-        <UDropdownMenu :items="dropdownActions">
+      <template #actions-cell="{ row }">
+        <UDropdownMenu v-if="rowActions" :items="rowActions(row.original)">
           <UButton
-            icon="i-lucide-ellipsis-vertical"
+            :icon="actionsIcon"
             color="neutral"
             variant="ghost"
             aria-label="Actions"

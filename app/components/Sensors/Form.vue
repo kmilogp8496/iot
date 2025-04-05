@@ -4,6 +4,10 @@ import type { z } from 'zod'
 const state = defineModel<z.infer<typeof createSensorSchema | typeof updateSensorSchema>>({
   required: true,
 })
+
+onMounted(() => {
+  console.log(state.value)
+})
 </script>
 
 <template>

@@ -11,6 +11,11 @@ const {
   data: AsyncData<PaginatedResponse<T> | undefined, unknown>
   pageSizes?: number[]
   rowActions?: (row: T) => DropdownMenuItem[][]
+  onCreate?: () => void
+}>()
+
+const emit = defineEmits<{
+  create: []
 }>()
 
 const search = defineModel<string>('search', {
@@ -51,14 +56,17 @@ const onSort = (column: string, direction?: SortDirection) => {
 <template>
   <UCard :ui="{ body: 'p-0 sm:p-0' }">
     <template #header>
-      <div class="flex items-center justify-between">
+      <div class="flex items-center gap-4">
         <UInput v-model="search" placeholder="Search..." :trailing-icon="searchIcon">
           <template v-if="search.length" #trailing>
             <ButtonClear @clear="search = ''" />
           </template>
         </UInput>
-        <UButton @click="data.refresh()">
+        <UButton variant="ghost" class="ml-auto" @click="data.refresh()">
           <Icon name="i-lucide-refresh-cw" />
+        </UButton>
+        <UButton v-if="onCreate" @click="onCreate">
+          <Icon :name="createIcon" />
         </UButton>
       </div>
     </template>

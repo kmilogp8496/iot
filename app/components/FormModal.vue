@@ -2,16 +2,19 @@
 import type { FormSubmitEvent } from '@nuxt/ui'
 import type { z } from 'zod'
 
-const { schema, state, handler, title } = defineProps<{
+const props = defineProps<{
   schema: T
-  state: z.infer<T>
   handler: (e: FormSubmitEvent<z.infer<T>>) => Promise<unknown>
+  stateBuilder: () => Ref<z.infer<T>>
   title: string
+  formBuilder: () => ReturnType<typeof defineComponent>
 }>()
 
 const emit = defineEmits<{
   close: []
 }>()
+
+const state = props.stateBuilder()
 
 const form = useTemplateRef('form')
 
@@ -21,7 +24,7 @@ const onSubmit = async (e: FormSubmitEvent<z.infer<T>>) => {
   loading.value = true
 
   try {
-    await handler(e)
+    await props.handler(e)
   }
   finally {
     loading.value = false
@@ -39,7 +42,9 @@ const onSubmit = async (e: FormSubmitEvent<z.infer<T>>) => {
         class="space-y-4"
         @submit="onSubmit"
       >
-        <slot :state />
+        <slot :state>
+          <component :is="formBuilder()" v-model="state" />
+        </slot>
       </UForm>
     </template>
     <template #footer>

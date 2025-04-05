@@ -3,6 +3,10 @@ import type { DropdownMenuItem } from '@nuxt/ui'
 import type { z } from 'zod'
 import { SensorsForm } from '#components'
 
+useHead({
+  title: 'Sensors',
+})
+
 const { viewBinds, params } = useDataView()
 
 const sensors = useApiFetch('/api/v1/sensors', {
@@ -62,20 +66,24 @@ const createSensorState = (sensor?: Sensor) => ref<z.infer<typeof createSensorSc
 
 const deleteModal = useConfirmModal()
 
-const createModal = useFormModal({
-  title: 'Create sensor',
-  schema: createSensorSchema,
-  state: createSensorState(),
-  handler: async (e) => {
-    await apiFetch('/api/v1/sensors', {
-      method: 'POST',
-      body: e.data,
-    })
+const createModal = useFormModal<typeof createSensorSchema>()
+const onCreate = () => {
+  createModal.open({
+    title: 'Create sensor',
+    formBuilder: () => SensorsForm,
+    stateBuilder: createSensorState,
+    schema: createSensorSchema,
+    handler: async (e) => {
+      await apiFetch('/api/v1/sensors', {
+        method: 'POST',
+        body: e.data,
+      })
 
-    createModal.close()
-    sensors.refresh()
-  },
-})
+      createModal.close()
+      sensors.refresh()
+    },
+  })
+}
 
 const editModal = useFormModal()
 
@@ -89,7 +97,8 @@ const rowActions = (row: Sensor): DropdownMenuItem[][] => {
           editModal.open({
             title: `Edit sensor ${row.name}`,
             schema: updateSensorSchema,
-            state: createSensorState(row),
+            formBuilder: () => SensorsForm,
+            stateBuilder: () => createSensorState(row),
             handler: async (e) => {
               await apiFetch(`/api/v1/sensors/${row.id}`, {
                 method: 'PUT',
@@ -125,11 +134,13 @@ const rowActions = (row: Sensor): DropdownMenuItem[][] => {
 
 <template>
   <div class="py-4">
+    <UPageHeader title="Sensors" description="Manage your sensors here." />
     <DataView
       v-bind="viewBinds"
       :columns="columns"
       :data="sensors"
       :row-actions
+      @create="onCreate"
     />
   </div>
 </template>

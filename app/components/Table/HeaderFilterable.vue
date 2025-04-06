@@ -1,9 +1,10 @@
 <script setup lang="ts">
-const search = ref<string | undefined>(undefined)
-const { placeholder = 'Search...' } = defineProps<{
-  isActive?: boolean
+const { placeholder = 'Search...', value } = defineProps<{
+  value?: string
   placeholder?: string
 }>()
+
+const search = ref<string | undefined>(value)
 
 const isOpen = defineModel<boolean>({
   default: false,
@@ -28,7 +29,7 @@ const onSearch = () => {
 <template>
   <UPopover v-model:open="isOpen">
     <UButton
-      :color="isActive ? 'primary' : 'neutral'"
+      :color="value ? 'primary' : 'neutral'"
       variant="ghost"
       :trailing-icon="filterIcon"
       class="p-0.5 ml-1"

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const emit = defineEmits<{
-  search: [string | number | undefined]
+  search: [string | undefined]
 }>()
 
 const { debounceTime = 300, ...props } = defineProps<{
@@ -18,8 +18,8 @@ const fetchOptions = async () => {
 
 const debouncedFetchOptions = useDebounceFn(fetchOptions, debounceTime)
 
-const selectedOption = ref<string | number | undefined>(undefined)
-const options = ref<{ value: string | number, label: string }[]>([])
+const selectedOption = ref<string | undefined>(undefined)
+const options = ref<{ value: string, label: string }[]>([])
 
 onMounted(() => {
   debouncedFetchOptions()

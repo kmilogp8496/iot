@@ -32,7 +32,7 @@ const pagination = defineModel<{
   }),
 })
 
-const columnFilters = defineModel<Record<string, string | number | boolean | undefined>>('columnFilters', {
+const columnFilters = defineModel<Record<string, string | undefined>>('columnFilters', {
   default: () => ({}),
 })
 
@@ -84,7 +84,7 @@ const onSort = (column: string, direction?: SortDirection) => {
           <template v-if="col.filter">
             <TableHeaderFilterable
               v-if="col.filter === true"
-              :is-active="!!columnFilters[col.accessorKey]"
+              :value="columnFilters[col.accessorKey]"
               @search="columnFilters[col.accessorKey] = $event"
             />
             <TableHeaderFilter

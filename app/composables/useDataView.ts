@@ -1,3 +1,5 @@
+import { objectOmit } from '@vueuse/core'
+
 export const useDataView = (defaultValues: {
   search?: string
   pagination?: Pagination
@@ -8,6 +10,8 @@ export const useDataView = (defaultValues: {
   const search = ref(defaultValues.search ?? '')
 
   const debouncedSearch = debouncedRef(search, 300)
+
+  const router = useRouter()
 
   const pagination = ref({
     page: useRouteQuery('page', 1, {
@@ -20,7 +24,17 @@ export const useDataView = (defaultValues: {
 
   const pageSizes = defaultValues.pageSizes ?? [5, 10, 20, 50]
 
-  const columnFilters = ref<Record<string, string | number | boolean | undefined>>(defaultValues.columnFilters ?? {})
+  // @ts-expect-error To be fixed
+  const columnFilters = ref<Record<string, string | undefined>>(objectOmit(router.currentRoute.value.query, ['page', 'pageSize']))
+
+  watch(columnFilters, (value) => {
+    router.replace({
+      query: {
+        ...router.currentRoute.value.query,
+        ...value,
+      },
+    })
+  }, { deep: true })
 
   const listeners = {
     'onUpdate:search': (value: string) => {
@@ -29,7 +43,7 @@ export const useDataView = (defaultValues: {
     'onUpdate:pagination': (value: Pagination) => {
       pagination.value = value
     },
-    'onUpdate:columnFilters': (value: Record<string, string | number | boolean | undefined>) => {
+    'onUpdate:columnFilters': (value: Record<string, string | undefined>) => {
       columnFilters.value = value
     },
     'onUpdate:orderBy': (value: OrderBy | null) => {

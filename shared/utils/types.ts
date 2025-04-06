@@ -15,7 +15,7 @@ export type DataTableColumn<T> = TableColumn<T> & {
 export type FilterFunction = (search: string) => Promise<FilterItem[]> | FilterItem[]
 
 export interface FilterItem {
-  value: string | number
+  value: string
   label: string
 }
 

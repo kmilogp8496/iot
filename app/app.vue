@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { ContentNavigationItem } from '@nuxt/content'
+
 const { seo } = useAppConfig()
 
 defineOgImageComponent('Nuxt', {
@@ -31,7 +33,19 @@ useSeoMeta({
   twitterCard: 'summary_large_image',
 })
 
-provide('navigation', navigation)
+provide<ContentNavigationItem[]>('navigation', [
+  ...(navigation.value ?? []),
+  {
+    path: '/sensors',
+    title: 'Sensors',
+    children: [
+      {
+        path: '/sensors',
+        title: 'Sensors',
+      },
+    ],
+  },
+])
 </script>
 
 <template>

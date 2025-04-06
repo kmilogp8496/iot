@@ -23,6 +23,7 @@
     "@nuxt/ui-pro": "^3.0.2",
     "@nuxthub/core": "^0.8.23",
     "@vueuse/nuxt": "13.0.0",
+    "@vueuse/router": "^13.0.0",
     "consola": "^3.4.2",
     "drizzle-orm": "^0.41.0",
     "drizzle-seed": "^0.3.1",

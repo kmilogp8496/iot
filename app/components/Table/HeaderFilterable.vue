@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const search = ref('')
+const search = ref<string | undefined>(undefined)
 const { placeholder = 'Search...' } = defineProps<{
   isActive?: boolean
   placeholder?: string
@@ -10,11 +10,11 @@ const isOpen = defineModel<boolean>({
 })
 
 const emit = defineEmits<{
-  search: [string]
+  search: [string | undefined]
 }>()
 
 const onClear = () => {
-  search.value = ''
+  search.value = undefined
   emit('search', search.value)
   isOpen.value = false
 }
@@ -42,7 +42,7 @@ const onSearch = () => {
             :trailing-icon="searchIcon"
             @keyup.enter="onSearch"
           >
-            <template v-if="search.length" #trailing>
+            <template v-if="search" #trailing>
               <ButtonClear @clear="onClear" />
             </template>
           </UInput>

@@ -6,12 +6,20 @@ export const useDataView = (defaultValues: {
   orderBy?: OrderBy
 } = {}) => {
   const search = ref(defaultValues.search ?? '')
+
   const debouncedSearch = debouncedRef(search, 300)
-  const pagination = ref<Pagination>(defaultValues.pagination ?? {
-    page: 1,
-    pageSize: 5,
+
+  const pagination = ref({
+    page: useRouteQuery('page', 1, {
+      transform: value => value ? Number(value) : (defaultValues.pagination?.page ?? 1),
+    }),
+    pageSize: useRouteQuery('pageSize', 5, {
+      transform: value => value ? Number(value) : (defaultValues.pagination?.pageSize ?? 5),
+    }),
   })
+
   const pageSizes = defaultValues.pageSizes ?? [5, 10, 20, 50]
+
   const columnFilters = ref<Record<string, string | number | boolean | undefined>>(defaultValues.columnFilters ?? {})
 
   const listeners = {

@@ -1,10 +1,25 @@
-<template>
-  <UApp>
-    <AppHeader />
+<script setup lang="ts">
+import type { ContentNavigationItem } from '@nuxt/content'
 
-    <UContainer class="min-h-[calc(100vh-123px)]">
-      <slot />
+const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
+</script>
+
+<template>
+  <div>
+    <AppHeader />
+    <UContainer>
+      <UPage>
+        <template #left>
+          <UPageAside>
+            <UContentNavigation
+              highlight
+              :navigation="navigation"
+            />
+          </UPageAside>
+        </template>
+        <slot />
+      </UPage>
     </UContainer>
     <AppFooter />
-  </UApp>
+  </div>
 </template>

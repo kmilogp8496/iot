@@ -31,7 +31,7 @@ IoT Platform is an online tool for managing IoT devices on the internet using se
   :::u-button
   ---
   size: xl
-  to: /docs/getting-started/setup
+  to: /docs/setup
   trailing-icon: i-lucide-arrow-right
   ---
   Get started
@@ -60,7 +60,7 @@ All-in-one IoT devices management
   color: neutral
   size: lg
   target: _blank
-  to: /docs/getting-started/setup
+  to: /docs/setup
   trailingIcon: i-lucide-arrow-right
   variant: subtle
   ---
@@ -111,7 +111,7 @@ All-in-one IoT devices management
   ---
   icon: i-cbi-outdoor-motion-sensor-temperature
   target: _blank
-  to: /docs/getting-started/setup
+  to: /docs/setup
   ---
   #title
   Device Agnostic

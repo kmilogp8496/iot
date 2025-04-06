@@ -56,7 +56,7 @@ export default defineAppConfig({
       }, {
         icon: 'i-lucide-book-open',
         label: 'IoT Platform docs',
-        to: '/docs/getting-started/setup',
+        to: '/docs/setup',
       }],
     },
   },

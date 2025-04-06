@@ -2,10 +2,6 @@
 import type { ContentNavigationItem } from '@nuxt/content'
 import { findPageHeadline } from '#ui-pro/utils/content'
 
-definePageMeta({
-  layout: 'docs',
-})
-
 const route = useRoute()
 const { toc, seo } = useAppConfig()
 const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')!

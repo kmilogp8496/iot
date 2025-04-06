@@ -14,10 +14,6 @@ const {
   onCreate?: () => void
 }>()
 
-const emit = defineEmits<{
-  create: []
-}>()
-
 const search = defineModel<string>('search', {
   default: '',
 })

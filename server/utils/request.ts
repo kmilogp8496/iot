@@ -8,10 +8,10 @@ export const paginationQuerySchema = z.object({
   search: z.string().optional(),
 })
 
-export const idParamSchema = z.object({
-  // id comes as a string, needs to be refined and converted to a number using only zod features
-  id: z.coerce.number(),
-})
+export const getIdParamSchema = <Field extends string>(field: Field) =>
+  z.object({ [field]: z.coerce.number() } as { [K in Field]: ReturnType<typeof z.coerce.number> })
+
+export const idParamSchema = getIdParamSchema('id')
 
 export const buildOrderBySchema = <const T extends Table>(
   table: T,

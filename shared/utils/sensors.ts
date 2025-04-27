@@ -7,3 +7,7 @@ export const createSensorSchema = z.object({
 })
 
 export const updateSensorSchema = createSensorSchema
+
+export const createSensorCredentialsSchema = z.object({
+  apiKey: z.string().length(16, { message: 'API key must be 16 characters long' }),
+})

@@ -9,8 +9,6 @@ useHead({
 
 const { viewBinds, params } = useDataView()
 
-const router = useRouter()
-
 const sensors = useApiFetch('/api/v1/iot/sensors', {
   params,
 })

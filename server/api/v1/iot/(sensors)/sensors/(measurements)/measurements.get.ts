@@ -2,7 +2,7 @@ import { count, desc, like } from 'drizzle-orm'
 import { createSelectSchema } from 'drizzle-zod'
 import { objectPick } from '@vueuse/core'
 
-export default validatedEventHandler(async ({ query, session }) => {
+export default validatedEventHandler(async ({ query }) => {
   console.log('measurements', query)
   const db = useDrizzle()
 

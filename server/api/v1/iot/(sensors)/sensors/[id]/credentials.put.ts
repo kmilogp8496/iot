@@ -1,4 +1,3 @@
-import { getIdParamSchema } from '~~/server/utils/request'
 import { createSensorCredentialsSchema } from '~~/shared/utils/sensors'
 
 export default validatedEventHandler(async ({ body, params, session }) => {
@@ -7,7 +6,7 @@ export default validatedEventHandler(async ({ body, params, session }) => {
   const sensor = (await db.select({ id: tables.sensors.id }).from(tables.sensors).where(
     and(
       ...getDefaultSensorFilters(session.user.organization.id),
-      eq(tables.sensors.id, params.sensorId),
+      eq(tables.sensors.id, params.id),
     ),
   )).at(0)
 
@@ -22,11 +21,9 @@ export default validatedEventHandler(async ({ body, params, session }) => {
     apiKey: hashedApiKey,
   }).onConflictDoUpdate({
     target: tables.sensorCredentials.sensorId,
-    set: {
-      apiKey: hashedApiKey,
-    },
+    set: { apiKey: hashedApiKey },
   }).returning()).at(0)
 }, {
   bodySchema: createSensorCredentialsSchema,
-  paramsSchema: getIdParamSchema('sensorId'),
+  paramsSchema: idParamSchema,
 })

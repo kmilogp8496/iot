@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { DropdownMenuItem } from '@nuxt/ui'
 import type { z } from 'zod'
-import { SensorsForm } from '#components'
+import { SensorsForm, SensorsPasswordForm } from '#components'
 
 useHead({
   title: 'Sensors',
@@ -84,12 +84,43 @@ const onCreate = () => {
     },
   })
 }
-
+const toast = useToast()
 const editModal = useFormModal()
+
+const credentialsModal = useFormModal<typeof createSensorCredentialsSchema>()
 
 const rowActions = (row: Sensor): DropdownMenuItem[][] => {
   return [
     [
+      {
+        label: 'Credentials',
+        icon: credentialsIcon,
+        onSelect: async () => {
+          credentialsModal.open({
+            title: 'Credentials',
+            formBuilder: () => SensorsPasswordForm,
+            stateBuilder: () => ref({
+              apiKey: '',
+            }),
+            schema: createSensorCredentialsSchema,
+            handler: async (e) => {
+              await apiFetch(`/api/v1/iot/sensors/${row.id}/credentials`, {
+                method: 'PUT',
+                body: e.data,
+              })
+
+              useClipboard().copy(e.data.apiKey)
+
+              toast.add({
+                title: 'API key generated and copied to clipboard',
+                icon: copyIcon,
+              })
+
+              credentialsModal.close()
+            },
+          })
+        },
+      },
       {
         label: 'Measurements',
         icon: measurementsIcon,

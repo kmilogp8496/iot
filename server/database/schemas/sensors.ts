@@ -1,4 +1,5 @@
 import { sqliteTable, text, integer, index } from 'drizzle-orm/sqlite-core'
+import { sql } from 'drizzle-orm'
 import { organizations } from './organizations'
 import { users } from './users'
 
@@ -11,8 +12,8 @@ export const sensors = sqliteTable('sensors', {
   name: text('name').notNull(),
   description: text('description'),
   location: text('location').notNull(),
-  createdAt: integer('created_at', { mode: 'timestamp' }).notNull().$default(() => new Date()),
-  updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull().$default(() => new Date()).$onUpdate(() => new Date()),
+  createdAt: integer('created_at', { mode: 'timestamp' }).notNull().default(sql`(unixepoch())`),
+  updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull().default(sql`(unixepoch())`).$onUpdate(() => sql`(unixepoch())`),
 }, t => ([
   index('sensors_organization_id_idx').on(t.organizationId),
   index('sensors_created_by_idx').on(t.createdBy),

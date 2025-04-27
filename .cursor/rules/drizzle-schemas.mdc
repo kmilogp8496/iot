@@ -1,0 +1,7 @@
+---
+description: This must be used for drizzle schemas generation.
+globs: 
+alwaysApply: false
+---
+All drizzle schemas must be registered on [drizzle.ts](mdc:server/utils/drizzle.ts).
+Every schema must be added inside of `server/database/schemas`. Before creating a new schema always take a look at the rest of the implementations in the `server/database/schemas` for guidance. The relations between the schemas must be always added when specified or it's obvious. The dialect for the schemas will always be SQLite.

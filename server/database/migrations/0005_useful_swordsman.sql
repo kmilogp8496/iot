@@ -1,0 +1,1 @@
+ALTER TABLE `measurements` ADD `metric_name` text NOT NULL;

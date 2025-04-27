@@ -9,7 +9,7 @@ const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
     <AppHeader />
     <UContainer>
       <UPage>
-        <template #left>
+        <template v-if="$route.path !== '/'" #left>
           <UPageAside>
             <UContentNavigation
               highlight

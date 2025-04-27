@@ -9,7 +9,9 @@ useHead({
 
 const { viewBinds, params } = useDataView()
 
-const sensors = useApiFetch('/api/v1/sensors', {
+const router = useRouter()
+
+const sensors = useApiFetch('/api/v1/iot/sensors', {
   params,
 })
 
@@ -74,7 +76,7 @@ const onCreate = () => {
     stateBuilder: createSensorState,
     schema: createSensorSchema,
     handler: async (e) => {
-      await apiFetch('/api/v1/sensors', {
+      await apiFetch('/api/v1/iot/sensors', {
         method: 'POST',
         body: e.data,
       })
@@ -91,6 +93,15 @@ const rowActions = (row: Sensor): DropdownMenuItem[][] => {
   return [
     [
       {
+        label: 'Measurements',
+        icon: measurementsIcon,
+        onSelect: async () => {
+          await navigateTo(`/measurements/sensors/${row.id}`)
+        },
+      },
+    ],
+    [
+      {
         label: 'Edit',
         icon: editIcon,
         onSelect: () => {
@@ -100,7 +111,7 @@ const rowActions = (row: Sensor): DropdownMenuItem[][] => {
             formBuilder: () => SensorsForm,
             stateBuilder: () => createSensorState(row),
             handler: async (e) => {
-              await apiFetch(`/api/v1/sensors/${row.id}`, {
+              await apiFetch(`/api/v1/iot/sensors/${row.id}`, {
                 method: 'PUT',
                 body: e.data,
               })
@@ -119,14 +130,15 @@ const rowActions = (row: Sensor): DropdownMenuItem[][] => {
           const result = await deleteModal.open({
             title: 'Delete Sensor',
             description: `Are you sure you want to delete the sensor ${row.name}?`,
-          })
+          }).result
 
           if (result) {
-            await apiFetch(`/api/v1/sensors/${row.id}`, { method: 'DELETE' })
+            await apiFetch(`/api/v1/iot/sensors/${row.id}`, { method: 'DELETE' })
             sensors.refresh()
           }
         },
       },
+
     ],
   ]
 }

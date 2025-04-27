@@ -15,13 +15,15 @@ export default validatedEventHandler(async ({ body, params, session }) => {
     throw createNotFoundResponse('Sensor not found')
   }
 
+  const hashedApiKey = await hashPassword(body.apiKey)
+
   return (await db.insert(tables.sensorCredentials).values({
     sensorId: sensor.id,
-    apiKey: body.apiKey,
+    apiKey: hashedApiKey,
   }).onConflictDoUpdate({
     target: tables.sensorCredentials.sensorId,
     set: {
-      apiKey: body.apiKey,
+      apiKey: hashedApiKey,
     },
   }).returning()).at(0)
 }, {

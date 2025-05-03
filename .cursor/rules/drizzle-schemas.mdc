@@ -1,5 +1,5 @@
 ---
-description: This must be used for drizzle schemas generation.
+description: 
 globs: 
 alwaysApply: false
 ---

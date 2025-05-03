@@ -13,3 +13,15 @@ export const createNotFoundResponse = (message: string) => createError({
   statusMessage: 'Not found',
   message,
 })
+
+export const createUnauthorizedResponse = (message: string) => createError({
+  statusCode: 401,
+  statusMessage: 'Unauthorized',
+  message,
+})
+
+export const createBadRequestResponse = (message: string) => createError({
+  statusCode: 400,
+  statusMessage: 'Bad request',
+  message,
+})

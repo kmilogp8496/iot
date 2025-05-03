@@ -1,6 +1,7 @@
 import { ZodError, type ZodType, type z } from 'zod'
 import type { H3Event } from 'h3'
 import { eventHandler } from 'h3'
+import { createUnauthorizedResponse } from './response'
 import type { UserSessionRequired } from '#auth-utils'
 
 type EmptyZodType = ZodType<never>
@@ -77,4 +78,33 @@ export const validatedEventHandler = <
       })
     }
   })
+}
+
+export const validateSensorSession = async (event: H3Event) => {
+  const authorizationHeader = getHeader(event, 'Authorization')
+
+  const apiKey = authorizationHeader?.split(' ')[1]
+  const sensorId = Number(authorizationHeader?.split(' ')[0])
+
+  if (!apiKey || !sensorId)
+    throw createUnauthorizedResponse('Invalid API key')
+
+  const db = useDrizzle()
+  const hashedApiKey = await hashPassword(apiKey)
+
+  const sensor = await db.query.sensorCredentials.findFirst({
+    where: and(
+      eq(tables.sensorCredentials.apiKey, hashedApiKey),
+      eq(tables.sensorCredentials.sensorId, sensorId),
+    ),
+    columns: {
+      sensorId: true,
+      apiKey: false,
+    },
+  })
+
+  if (!sensor)
+    throw createUnauthorizedResponse('Invalid API key')
+
+  return sensor.sensorId
 }

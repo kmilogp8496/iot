@@ -57,6 +57,13 @@
       "when": 1745776556559,
       "tag": "0007_fat_morlocks",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "6",
+      "when": 1746261932595,
+      "tag": "0008_fuzzy_young_avengers",
+      "breakpoints": true
     }
   ]
 }

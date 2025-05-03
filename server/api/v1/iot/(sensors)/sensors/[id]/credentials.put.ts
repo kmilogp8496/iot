@@ -20,7 +20,7 @@ export default validatedEventHandler(async ({ body, params, session }) => {
     sensorId: sensor.id,
     apiKey: hashedApiKey,
   }).onConflictDoUpdate({
-    target: tables.sensorCredentials.sensorId,
+    target: [tables.sensorCredentials.sensorId],
     set: { apiKey: hashedApiKey },
   }).returning()).at(0)
 }, {
